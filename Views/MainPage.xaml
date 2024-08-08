@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherAppMAUI.Views.MainPage"
+             xmlns:weatherVm1="clr-namespace:WeatherAppMAUI.ViewModels">
+
+    <ContentPage.BindingContext>
+        <weatherVm1:ViewModels/>
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20,40,20,20">
+        <Entry Text="{Binding City, Mode=TwoWay}"
+            Placeholder="Search City"
+            BackgroundColor="#F0F0F0"
+            TextColor="#333333"
+            PlaceholderColor="#888888"
+            Margin="0,0,0,20"/>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy,Mode=TwoWay}"
+                        Color="#555555"/>
+
+        <Grid Margin="0,20,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="City:"
+                Grid.Row="0" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding MainModels.CityName}"
+                Grid.Row="0" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+
+            <Label Text="Country:"
+                Grid.Row="1" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding MainModels.Sys.Country}"
+                Grid.Row="1" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+
+            <Label Text="Temperature:"
+                Grid.Row="2" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding TemperatureCelsius}"
+                Grid.Row="2" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+
+            <Label Text="Humidity:"
+                Grid.Row="3" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding MainModels.Main.Humidity}"
+                Grid.Row="3" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+
+            <Label Text="Weather Main Status:"
+                Grid.Row="4" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding MainModels.Weather[0].Main}"
+                Grid.Row="4" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+
+            <Label Text="Weather Status:"
+                Grid.Row="5" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding MainModels.Weather[0].WeatherDescription}"
+                Grid.Row="5" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+
+            <Label Text="Weather Icon:"
+                Grid.Row="6" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Image Source="{Binding IconImageString}"
+                Grid.Row="6" Grid.Column="1"
+                HorizontalOptions="End"
+                WidthRequest="30"
+                HeightRequest="30"/>
+
+            <Label Text="Wind Speed:"
+                Grid.Row="7" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding MainModels.Wind.WindSpeed}"
+                Grid.Row="7" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+
+            <Label Text="Sys ID:"
+                Grid.Row="8" Grid.Column="0"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+            <Label Text="{Binding MainModels.ID}"
+                Grid.Row="8" Grid.Column="1"
+                HorizontalTextAlignment="End"
+                FontSize="Medium"
+                TextColor="#dadada"/>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>
