@@ -12,6 +12,7 @@ namespace WeatherAppMAUI.Views // Assuming you've placed your views in a 'Views'
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new ViewModels.ViewModels();
         }
     }
 }

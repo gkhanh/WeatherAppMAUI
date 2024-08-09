@@ -4,13 +4,14 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Net.Http;
+using WeatherAppMAUI.Models;
 
 namespace WeatherAppMAUI.WeatherServiceClient
 {
     public class AccessWeatherAPI<T>
     {
-        private const string OpenWeatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=";
-        // private const string API_Key = "653b1f0bf8a08686ac505ef6f05b94c2";
+        private const string OpenWeatherAPI = "https://api.openweathermap.org/data/2.5/weather?q=";
+        // private const string BaseUrl = "https://api.openweathermap.org/data/2.5/weather";
         private const string API_Key = "136bd4ea8e928fccaa398d678028f205";
         HttpClient _httpClient = new HttpClient();
 

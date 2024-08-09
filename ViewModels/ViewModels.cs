@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WeatherAppMAUI.Models;
 using WeatherAppMAUI.ServiceHandler;
+using System.Diagnostics;
 
 namespace WeatherAppMAUI.ViewModels
 {
@@ -26,9 +27,8 @@ namespace WeatherAppMAUI.ViewModels
             set
             {
                 _weatherMainModel = value;
-                IconImageString = "http://openweathermap.org/img/w/" + _weatherMainModel.Weather[0].WeatherIcon + ".png";// fetch weather icon image
+                IconImageString = "https://openweathermap.org/img/w/" + _weatherMainModel.Weather[0].WeatherIcon + ".png";// fetch weather icon image
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(TemperatureCelsius));
             }
         }
         private string _city;// for entry binding and for method parameter value
@@ -64,12 +64,42 @@ namespace WeatherAppMAUI.ViewModels
         }
 
         // Returning Weather Details from WeatherServices
+        [Obsolete]
         private async Task InitializeGetWeatherAsync()
         {
             try
             {
                 IsBusy = true;// set the ui property "IsRunning" to true(loading) in Xaml ActivityIndicator Control
-               MainModels = await _weatherServices.GetWeatherDetails(_city);
+                var weatherData = await _weatherServices.GetWeatherDetails(_city); // Fetch the weather data
+
+                if (weatherData != null)
+                {
+                    Debug.WriteLine($"Weather data fetched for {weatherData.CityName}");
+                    // Ensure the UI is updated on the main thread
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        MainModels = weatherData; // Set the fetched data to MainModels
+                        Debug.WriteLine($"Weather data assigned for {MainModels.CityName}");
+                        OnPropertyChanged(nameof(MainModels));
+                        OnPropertyChanged(nameof(TemperatureCelsius));
+                    });
+                }
+                else
+                {
+                    Debug.WriteLine("No weather data returned.");
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        // Show an alert or update a label with an error message
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error fetching weather data: {ex.Message}");
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    // Show an alert or update a label with the error message
+                });
             }
             finally
             {
